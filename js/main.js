@@ -8,19 +8,35 @@ let coursePromise = getCourseInfo();
 
 coursePromise.then((data) => {
     const course = data.data;
+    var tableContent = `<table class="table table-bordered">`;
 
-    course.holes.forEach((hole) => {
-        document.body.innerHTML += `
-        <div>
-            <div class="table-responsive">
-                <table class="table">
-                
-                    <td>${hole.teeBoxes[0].par}</td>
-                    <td>${hole.teeBoxes[0].yards}</td>
-                    <td>${hole.teeBoxes[0].hcp}</td>
-                
-                </table>
-            </div>
-        </div>`
-    });
+    tableContent += `<tr>`;
+    tableContent += `<td>Hole</td>`;
+    for(let i = 0; i < course.holes.length; i++) {
+        tableContent += ` 
+            <td>${course.holes[i].hole}</td>   
+        `;
+    }
+    tableContent += `</tr>`;
+
+    tableContent += `<tr>`;
+    tableContent += `<td>Par</td>`;
+    for(let i = 0; i < course.holes.length; i++) {
+        tableContent += ` 
+            <td>${course.holes[i].teeBoxes[0].par}</td>   
+        `;
+    }
+    tableContent += `</tr>`;
+
+    tableContent += `<tr>`;
+    tableContent += `<td>Yards</td>`;
+    for(let i = 0; i < course.holes.length; i++) {
+        tableContent += ` 
+            <td>${course.holes[i].teeBoxes[0].yards}</td>   
+        `;
+    }
+    tableContent += `</tr>`;
+
+    tableContent += '</table>';
+    document.getElementById('insideScorecard').innerHTML += tableContent;
 });
